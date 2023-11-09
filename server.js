@@ -2,10 +2,10 @@ const express = require("express");
 const app = express();
 
 app.set('view engine','ejs');
+app.use(logger)
 
 app.get('/',(req,res) =>{
-    console.log("Here");
-    // res.download('img/anderson-rangel-sky.jpg')
+    //res.download('img/anderson-rangel-sky.jpg')
     res.render("index",{text: "Sample text response: World"})
 });
 
@@ -14,5 +14,10 @@ const userRouter = require('./routes/users')
 
 app.use('/users',userRouter)
 // app.use('/posts',postRouter)
+
+function logger(req, res, next){
+    console.log(req.originalUrl)
+    next()
+}
 
 app.listen(3000);
